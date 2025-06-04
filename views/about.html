@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Aplikasi Web Node.js</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1>Node.js Web App</h1>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about" class="active">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about">
+            <div class="container">
+                <h2>Tentang Aplikasi Ini</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Aplikasi web sederhana ini dibuat menggunakan <strong>Node.js</strong> dan <strong>Express.js</strong> sebagai pembelajaran dasar pengembangan web dengan JavaScript di sisi server.</p>
+                        
+                        <h3>Teknologi yang Digunakan:</h3>
+                        <ul>
+                            <li><strong>Node.js</strong> - Runtime JavaScript untuk server-side</li>
+                            <li><strong>Express.js</strong> - Framework web minimalis untuk Node.js</li>
+                            <li><strong>HTML5</strong> - Markup language untuk struktur halaman</li>
+                            <li><strong>CSS3</strong> - Styling dan layout halaman</li>
+                            <li><strong>JavaScript</strong> - Interaktivitas di sisi client</li>
+                        </ul>
+
+                        <h3>Fitur yang Tersedia:</h3>
+                        <ul>
+                            <li>Server Express.js dengan routing</li>
+                            <li>Serving static files (CSS, JS, images)</li>
+                            <li>RESTful API endpoints</li>
+                            <li>Form handling dengan POST request</li>
+                            <li>Responsive design</li>
+                            <li>Error handling (404 page)</li>
+                        </ul>
+
+                        <h3>Struktur Project:</h3>
+                        <pre>
+├── index.js           # Main server file
+├── package.json       # NPM configuration
+├── views/            # HTML templates
+│   ├── index.html
+│   ├── about.html
+│   └── 404.html
+└── public/           # Static assets
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── script.js
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Node.js Web App. Dibuat untuk pembelajaran.</p>
+        </div>
+    </footer>
+</body>
+</html>

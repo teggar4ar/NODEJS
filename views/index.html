@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Web Node.js Sederhana</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1>Node.js Web App</h1>
+                <ul class="nav-menu">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Selamat Datang di Aplikasi Web Node.js!</h2>
+                <p>Ini adalah contoh aplikasi web sederhana yang dibuat dengan Node.js dan Express.js</p>
+                <button id="loadDataBtn" class="btn btn-primary">Muat Data dari API</button>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h3>Fitur Aplikasi</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Express.js Server</h4>
+                        <p>Server web yang cepat dan minimalis untuk Node.js</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Static File Serving</h4>
+                        <p>Melayani file CSS, JavaScript, dan gambar secara otomatis</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>RESTful API</h4>
+                        <p>Endpoint API untuk GET dan POST data</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-form">
+            <div class="container">
+                <h3>Form Kontak</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nama:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Kirim Pesan</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="data-display">
+            <div class="container">
+                <h3>Data dari API</h3>
+                <div id="dataContainer" class="data-container">
+                    <p>Klik tombol "Muat Data dari API" untuk menampilkan data.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Node.js Web App. Dibuat untuk pembelajaran.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
