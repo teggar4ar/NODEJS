@@ -23,7 +23,7 @@ pipeline {
 
     stage('Unit Tests') {
       tools {
-        nodejs 'NodeJS'
+        nodejs 'NodeJs'
       }
       steps {
         script {
