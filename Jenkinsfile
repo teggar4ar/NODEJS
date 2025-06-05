@@ -25,8 +25,10 @@ pipeline {
       steps {
         script {
           echo "🧪 Running unit tests..."
-          sh 'npm install'
-          sh 'npm test'
+          sh """
+            apt update && apt install npm \
+            npm install
+            npm test
         }
       }
     }
