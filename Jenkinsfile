@@ -36,6 +36,9 @@ pipeline {
     }
 
     stage('Code analysis using SonarQube') {
+      tools {
+        scanner 'SonarScanner'
+      }
       steps {
         withCredentials([string(credentialsId: "${SONAR_TOKEN_CRED}", variable: 'SONAR_LOGIN_TOKEN')]) {
           script {
