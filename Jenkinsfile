@@ -22,6 +22,9 @@ pipeline {
     }
 
     stage('Unit Tests') {
+      tools {
+        nodejs 'NodeJS'
+      }
       steps {
         script {
           echo "🧪 Running unit tests..."
