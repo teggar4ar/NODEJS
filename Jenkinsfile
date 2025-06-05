@@ -36,6 +36,11 @@ pipeline {
     }
 
     stage('Code analysis using SonarQube') {
+      agent {
+        docker {
+            image 'sonarsource/sonar-scanner-cli:latest'
+        }
+      }
       steps {
         withSonarQubeEnv('sonar') {
           sh '''
