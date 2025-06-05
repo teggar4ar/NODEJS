@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     IMAGE = "teggar4ar/my-nodejs-app"
+    TAG = "v1.0.0"
     DOCKER_CRED = "docker-hub"
     KUBECONFIG_CRED = "kubeconfig-dev"
     SONAR_TOKEN_CRED = "sonar-token-cred"
@@ -55,13 +56,8 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          sh 'docker -v'
-          sh 'docker ps'
-          if (env.TAG) {
-            docker.build("${IMAGE}:${TAG}")
-          } else {
-            error "❌ Docker image TAG is not set!"
-          }
+          echo "🐳 Building Docker image: ${IMAGE}:${TAG}"
+          docker.build("${IMAGE}:${TAG}")
         }
       }
     }
