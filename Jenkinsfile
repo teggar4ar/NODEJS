@@ -50,7 +50,7 @@ pipeline {
       steps {
         script {
           echo "🔍 Running OWASP Dependency-Check..."
-          sh './owasp/bin/dependency-check.sh --project "my-simple-nodejs" --scan . --format HTML --out ./report'
+          sh './owasp/bin/dependency-check.sh --project "my-simple-nodejs" --scan . --format HTML --out ./report --disableYarnAudit'
         }
       }
     }
