@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  
+
   options {
     skipDefaultCheckout true
   }
@@ -44,6 +44,9 @@ pipeline {
     }
 
     stage('Security Scan - Dependency Check') {
+      tools {
+        nodejs 'NodeJs'
+      }
       steps {
         script {
           echo "🔍 Running OWASP Dependency-Check..."
@@ -116,7 +119,7 @@ pipeline {
           alwaysLinkToLastBuild: true,
           keepAll: false,
           reportDir: 'report',
-          reportFiles: 'dependency-check-report.html',
+          reportFiles: 'dependency-check-report.html', 'dependency-check-run.log',
           reportName: 'OWASP Dependency-Check Report'
         ])
       }
