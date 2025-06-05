@@ -1,9 +1,12 @@
 pipeline {
   agent any
+  
+  options {
+    skipDefaultCheckout true
+  }
 
   environment {
     IMAGE = "teggar4ar/my-nodejs-app"
-    TAG = "v1.0.0"
     DOCKER_CRED = "docker-hub"
     KUBECONFIG_CRED = "kubeconfig-dev"
     SONAR_TOKEN_CRED = "sonar-token-cred"
@@ -19,6 +22,10 @@ pipeline {
     stage('Checkout Source Code') {
       steps {
         git url: 'https://github.com/teggar4ar/NODEJS.git', branch: 'main'
+        script {
+          env.TAG = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+          echo "🏷️ Docker image will be tagged as: ${env.TAG}"
+        }
       }
     }
 
@@ -36,18 +43,27 @@ pipeline {
       }
     }
 
+    stage('Security Scan - Dependency Check') {
+      steps {
+        script {
+          echo "🔍 Running OWASP Dependency-Check..."
+          sh './owasp/bin/dependency-check.sh --project "my-simple-nodejs" --scan . --format HTML --out ./report'
+        }
+      }
+    }
+
     stage('Code analysis using SonarQube') {
       agent {
         docker {
-            image 'sonarsource/sonar-scanner-cli:latest'
+          image 'sonarsource/sonar-scanner-cli:latest'
         }
       }
       steps {
         withSonarQubeEnv('sonar') {
           sh '''
-              sonar-scanner \
-                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                -Dsonar.sources=.
+            sonar-scanner \
+              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+              -Dsonar.sources=.
           '''
         }
       }
@@ -92,15 +108,26 @@ pipeline {
   }
 
   post {
+    always {
+      script {
+        echo "📊 Archiving HTML reports..."
+        publishHTML(target: [
+          allowMissing: true,     // Set true jika direktori report mungkin tidak selalu ada
+          alwaysLinkToLastBuild: true,
+          keepAll: false,
+          reportDir: 'report',
+          reportFiles: 'dependency-check-report.html',
+          reportName: 'OWASP Dependency-Check Report'
+        ])
+      }
+      cleanWs()
+      echo "🧹 Workspace cleaned up."
+    }
     success {
       echo "✅ Pipeline Sukses: Aplikasi berhasil dideploy ke Kubernetes"
     }
     failure {
       echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
-    }
-    always {
-      cleanWs()
-      echo "🧹 Workspace cleaned up."
     }
   }
 }
