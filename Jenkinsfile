@@ -36,21 +36,13 @@ pipeline {
     }
 
     stage('Code analysis using SonarQube') {
-      tools {
-        scanner 'SonarScanner'
-      }
       steps {
-        withCredentials([string(credentialsId: "${SONAR_TOKEN_CRED}", variable: 'SONAR_LOGIN_TOKEN')]) {
-          script {
-            echo "🔍 Analyzing code with SonarQube..."
-            sh """
-               sonar-scanner \\
-                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \\
-                -Dsonar.host.url=${SONAR_HOST_URL} \\
-                -Dsonar.login=${SONAR_LOGIN_TOKEN}
-            """
-          }
-        }
+        withSonarQubeEnv('sonar')
+          sh '''
+              sonar-scanner \
+                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                -Dsonar.sources=.
+          '''
       }
     }
 
