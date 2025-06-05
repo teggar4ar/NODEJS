@@ -29,6 +29,7 @@ pipeline {
             apt update && apt install npm \
             npm install \
             npm test
+          """
         }
       }
     }
