@@ -119,7 +119,7 @@ pipeline {
           alwaysLinkToLastBuild: true,
           keepAll: false,
           reportDir: 'report',
-          reportFiles: 'dependency-check-report.html', 'dependency-check-run.log',
+          reportFiles: 'dependency-check-report.html',
           reportName: 'OWASP Dependency-Check Report'
         ])
       }
