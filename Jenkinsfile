@@ -58,6 +58,11 @@ pipeline {
           sh 'docker -v'
           sh 'docker ps'
           echo "🐳 Building Docker image: ${IMAGE}:${TAG}"
+          if (env.TAG) {
+            docker.build("${IMAGE}:${TAG}")
+          } else {
+            error "❌ Docker image TAG is not set!"
+          }
           docker.build("${IMAGE}:${TAG}")
         }
       }
