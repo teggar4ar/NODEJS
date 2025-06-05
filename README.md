@@ -44,8 +44,11 @@ Aplikasi web sederhana yang dibuat menggunakan Node.js dan Express.js untuk pemb
 ### Prerequisites
 - Node.js (versi 14 atau lebih baru)
 - NPM (biasanya sudah include dengan Node.js)
+- Docker (opsional, untuk containerization)
 
 ### Instalasi dan Menjalankan
+
+#### Method 1: Menjalankan Langsung dengan Node.js
 
 1. **Install dependencies:**
    ```bash
@@ -59,6 +62,56 @@ Aplikasi web sederhana yang dibuat menggunakan Node.js dan Express.js untuk pemb
    atau untuk development:
    ```bash
    npm run dev
+   ```
+
+3. **Buka browser dan akses:**
+   ```
+   http://localhost:3000
+   ```
+
+#### Method 2: Menjalankan dengan Docker
+
+1. **Build Docker image:**
+   ```bash
+   docker build -t nodejs-web-app .
+   ```
+   atau menggunakan npm script:
+   ```bash
+   npm run docker:build
+   ```
+
+2. **Jalankan container:**
+   ```bash
+   docker run -p 3000:3000 nodejs-web-app
+   ```
+   atau menggunakan npm script:
+   ```bash
+   npm run docker:run
+   ```
+
+3. **Buka browser dan akses:**
+   ```
+   http://localhost:3000
+   ```
+
+#### Method 3: Menjalankan dengan Docker Compose
+
+1. **Start dengan docker-compose:**
+   ```bash
+   docker-compose up -d
+   ```
+   atau menggunakan npm script:
+   ```bash
+   npm run docker:compose:up
+   ```
+
+2. **Stop aplikasi:**
+   ```bash
+   docker-compose down
+   ```
+   atau menggunakan npm script:
+   ```bash
+   npm run docker:compose:down
    ```
 
 3. **Buka browser dan akses:**
@@ -125,6 +178,31 @@ Menerima data dari form kontak.
 - **Interactive Elements** - Button hover effects dan form validation
 - **Loading States** - Indikator loading untuk operasi async
 - **Error Handling** - Pesan error yang user-friendly
+
+## 🐳 Docker Support
+
+Aplikasi ini sudah dikonfigurasi untuk berjalan dengan Docker dan Docker Compose.
+
+### Docker Files
+- **`Dockerfile`** - Multi-stage build dengan optimasi untuk production
+- **`.dockerignore`** - Mengecualikan file yang tidak diperlukan dalam container
+- **`docker-compose.yml`** - Konfigurasi untuk menjalankan aplikasi dengan Docker Compose
+- **`healthcheck.js`** - Script untuk health check container
+
+### Docker Features
+- **Multi-stage build** untuk optimasi ukuran image
+- **Non-root user** untuk keamanan
+- **Health check** untuk monitoring container
+- **Environment variables** untuk konfigurasi
+- **Volume mounting** support untuk development
+
+### NPM Scripts untuk Docker
+```bash
+npm run docker:build         # Build Docker image
+npm run docker:run           # Run container
+npm run docker:compose:up    # Start dengan docker-compose
+npm run docker:compose:down  # Stop docker-compose
+```
 
 ## 🧪 Testing
 
