@@ -26,7 +26,7 @@ pipeline {
         script {
           echo "🧪 Running unit tests..."
           sh """
-            apt update && apt install npm \
+            sudo apt update && sudo apt install npm \
             npm install \
             npm test
           """
