@@ -3,11 +3,15 @@ pipeline {
 
   environment {
     IMAGE = "teggar4ar/my-nodejs-app"
-    TAG = "v1.0.0"
     DOCKER_CRED = "docker-hub"
     KUBECONFIG_CRED = "kubeconfig-dev"
+    SONAR_TOKEN_CRED = "sonar-token-cred"
+    SONAR_HOST_URL = "http://192.168.49.1:9000"
     NAMESPACE = "default"
     HELM_RELEASE = "learn1"
+    GIT_REPO_URL = 'https://github.com/teggar4ar/NODEJS.git'
+    GIT_BRANCH = 'main'
+    SONAR_PROJECT_KEY = "learn-nodejs"
   }
 
   stages {
@@ -17,16 +21,28 @@ pipeline {
       }
     }
 
-    stage('Code analysis using SonarQube') {
+    stage('Unit Tests') {
       steps {
         script {
-          echo "🔍 Analyzing code with SonarQube..."
-          sh '''
-            mvn clean verify sonar:sonar \
-              -Dsonar.projectKey=learn-nodejs \
-              -Dsonar.host.url=http://localhost:9000 \
-              -Dsonar.login=your_sonar_token
-          '''
+          echo "🧪 Running unit tests..."
+          sh 'npm install'
+          sh 'npm test'
+        }
+      }
+    }
+
+    stage('Code analysis using SonarQube') {
+      steps {
+        withCredentials([string(credentialsId: "${SONAR_TOKEN_CRED}", variable: 'SONAR_LOGIN_TOKEN')]) {
+          script {
+            echo "🔍 Analyzing code with SonarQube..."
+            sh """
+               sonar-scanner \\
+                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \\
+                -Dsonar.host.url=${SONAR_HOST_URL} \\
+                -Dsonar.login=${SONAR_LOGIN_TOKEN}
+            """
+          }
         }
       }
     }
@@ -34,6 +50,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
+          echo "🐳 Building Docker image: ${IMAGE}:${TAG}"
           docker.build("${IMAGE}:${TAG}")
         }
       }
@@ -74,6 +91,10 @@ pipeline {
     }
     failure {
       echo "❌ Pipeline Gagal: Cek log untuk mengetahui error"
+    }
+    always {
+      cleanWs()
+      echo "🧹 Workspace cleaned up."
     }
   }
 }
