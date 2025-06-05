@@ -37,12 +37,13 @@ pipeline {
 
     stage('Code analysis using SonarQube') {
       steps {
-        withSonarQubeEnv('sonar')
+        withSonarQubeEnv('sonar') {
           sh '''
               sonar-scanner \
                 -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                 -Dsonar.sources=.
           '''
+        }
       }
     }
 
