@@ -27,7 +27,7 @@ pipeline {
           echo "🧪 Running unit tests..."
           sh """
             apt update && apt install npm \
-            npm install
+            npm install \
             npm test
         }
       }
