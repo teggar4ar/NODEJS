@@ -15,7 +15,7 @@ variables:
   webAppName: 'MyWebApp'
 
   # Environment name
-  environmentName: 'production'
+  environmentName: 'ngide'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
